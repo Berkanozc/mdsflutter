@@ -57,12 +57,17 @@ class MdsImpl {
     _idCounter++;
     _requestResultCbMap[_idCounter] = onSuccess;
     _requestErrorCbMap[_idCounter] = onError;
-
-    _channel.invokeMethod('get', <String, dynamic> {
-      "uri": uri,
-      "contract": contract,
-      "requestId": _idCounter
-    });
+    
+    try {
+      _channel.invokeMethod('get', <String, dynamic> {
+        "uri": uri,
+        "contract": contract,
+        "requestId": _idCounter
+      });
+    } catch (e) {
+      print(e);
+    }
+    
   }
 
   void put(
